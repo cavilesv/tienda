@@ -1,0 +1,36 @@
+
+<!-- <ion-content [ngClass]="`contenedor_principal`">  -->
+  <div class="contenedor_principal flex justify-center items-center bg-white">
+    <div id="formulario" class="flex flex-col items-center bg-white">
+      
+      <div id="cabecera_formulario" class="cabecera_formulario">
+        <div class="flex flex-row justify-center">
+  
+          <div *ngIf="mostrandoPanelLogin" class="flex-1"></div>
+  
+          <div *ngIf="!mostrandoPanelLogin" class="flex-1" (click)="cambiarPanel()">
+            <img src="../assets/icon/arrow-left.png" class="ml-2 mt-2 h-3/5" />
+          </div>
+  
+          <div class="flex-auto">
+            <ion-label class="font-bold text-3xl mt-4"> {{ tituloMostrado }} </ion-label>
+          </div>
+  
+          <div class="flex-auto"></div>
+        </div>
+  
+        <ion-label (focusEvent)="cambiarFocoAInput(true)" (blurEvent)="cambiarFocoAInput(false)" [ngStyle]="{opacity: getEstaEnfocandoInput() ? '0' : '1', transition: 'opacity 0.5s ease-in-out'}" *ngIf="mostrandoPanelLogin" class="text-gray-500 text-sm">¿No tienes una cuenta?</ion-label>
+        <ion-label (focusEvent)="cambiarFocoAInput(true)" (blurEvent)="cambiarFocoAInput(false)" [ngStyle]="{opacity: getEstaEnfocandoInput() ? '0' : '1', transition: 'opacity 0.5s ease-in-out'}" *ngIf="mostrandoPanelLogin" class="text-purple-700 font-bold text-sm" (click)="cambiarPanel()">
+          Registrarme
+        </ion-label>
+      </div>
+  
+      <div id="cuerpo_formulario" class="cuerpo_formulario" #cuerpoFormulario>
+        <ion-content>
+          <ion-router-outlet></ion-router-outlet>
+        </ion-content>
+      </div>
+  
+    </div>
+  </div>
+<!-- </ion-content> -->

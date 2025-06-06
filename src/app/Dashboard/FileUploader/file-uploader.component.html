@@ -1,0 +1,14 @@
+<div id="zona_archivo" class=" max-w-[100%] w-[100%]" (click)="abrirSelector()">
+    <input #inputImagen type="file" accept="image/*" style="display:none" (change)="cargarImagen($event)"/>
+    <ion-header class=" text-center h-[10%] max-h-[10%]">
+        <ion-col [ngClass]="`ion-no-padding`">Subir Imagen</ion-col>
+    </ion-header>
+    <ion-row  [ngClass]="`ion-no-padding h-[10em] max-h-[10em] flex ion-justify-content-center`">
+        
+        <ion-card *ngIf="getImagenSeleccionada()" [ngClass]="`ion-no-margin h-[11.32em] max-h-[11.32em] flex row ion-justify-content-center col`">
+            <img [src]="getImagenSeleccionada()" alt="Imagen seleccionada" [ngClass]="`max-h-[100%] h-[100%] w-auto col`"/>
+        </ion-card>
+        
+    </ion-row>
+  
+</div>

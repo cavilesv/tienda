@@ -1,0 +1,110 @@
+<!-- <div [ngClass]="` max-h-[100vh] h-[100%]`"> -->
+  <ion-grid [ngClass]="` max-h-[100vh] h-[100%] max-w-[100vw] w-[100vw]`">
+
+    <ion-row [ngClass]="` max-h-[7.5%] h-[7.5%] ion-justify-content-center ion-align-items-center`">
+      <ion-col [ngClass]="` max-w-[20%] w-[20%] ion-text-center font-bold text-2xl`">
+        <!-- <ion-menu-toggle [ngClass]="`h-[100%] w-[100%]`"> -->
+          <ion-img src="{{getIconsURL()+'close-menu-arrow.png'}}" (click)="irARuta('productos')" [ngClass]="`h-[55%] w-[55%]`"></ion-img>
+  <!--       </ion-menu-toggle> -->
+      </ion-col>
+      <ion-col [ngClass]="` max-w-[60%] w-[60%] ion-text-center font-bold text-2xl`">Agregar producto</ion-col>
+      <ion-col [ngClass]="` max-w-[20%] w-[20%] ion-text-center font-bold text-2xl`"></ion-col>
+    </ion-row>
+
+
+    <ion-row [ngClass]="` max-h-[92.5%] h-[92.5%] ion-justify-content-center ion-align-items-center`">
+      <ion-grid [ngClass]="` max-h-[100%] h-[100%]`">
+
+        <!-- Campo insertar imagen -->
+        
+          <ion-row [ngStyle]="{'opacity': getMostrarContenedorImagen() ? '1' : '0', 'max-height': getMostrarContenedorImagen() ? '30%' : '0%'}" [ngClass]="`transicion-opacidad-altura max-h-[30%] h-[30%] ion-justify-content-center ion-align-items-center`">
+            
+            <app-file-uploader #fileInputComponent [ngClass]="`max-h-[100%] h-[100%] max-w-[100%] w-[100%]`"/>
+          </ion-row>
+      
+        
+        <ion-row [ngClass]="` max-h-[70%] h-[70%] ion-justify-content-center ion-align-items-center`">
+          <ion-grid [ngClass]="` max-h-[100%] h-[100%]`">
+            <ion-row [ngClass]="` max-w-[90%] mx-auto`"> 
+              <div class="sm:col-span-3 w-[100%] mt-2">
+                <label for="nombre_producto" class="block text-sm/6 font-medium text-gray-600">Nombre del producto</label>
+                <div class="">
+                  <input #nombre_producto (focus)="setOcultarContenedorImagen()" (blur)="setMostrarContenedorImagen()" type="text" name="nombre_producto" id="first-name" autocomplete="given-name" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                </div>
+              </div>
+            </ion-row>
+
+            <ion-row [ngClass]="` max-w-[90%] mx-auto`"> 
+              <div class="sm:col-span-3 w-[100%] mt-2">
+                <label for="first-name" class="block text-sm/6 font-medium text-gray-600">Precio</label>
+                <div class=" flex">
+                  <input id="precio" #precio (focus)="setOcultarContenedorImagen()" (blur)="setMostrarContenedorImagen()" maxlength="8" id="campoPrecio" type="text" pattern="[0-9]*" inputmode="numeric" (keypress)="soloNumeros($event)" name="first-name" id="first-name" autocomplete="given-name" class="flex-1 max-w-[70%] rounded-l-md bg-white py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                  <div id="etiquetaMoneda" class="flex-1 max-w-[30%] text-white border-gray-300 ion-text-center rounded-md py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 neering-boton ">CLP</div>
+                </div>
+              </div>
+            </ion-row>
+
+            <ion-row [ngClass]="` max-w-[90%] mx-auto`"> 
+              <div class="sm:col-span-3 w-[100%] mt-2">
+                <label for="first-name" class="block text-sm/6 font-medium text-gray-600">Categoría</label>
+                <div class="py-0 my-0 px-0 flex">
+                  <input #categoria (focus)="setOcultarContenedorImagen()" (blur)="setMostrarContenedorImagen()" type="text" name="first-name" id="categoria" [value]="getValorCategoria() != getValorPorDefecto()? getValorCategoria() : getValorPorDefecto()" disabled autocomplete="off" placeholder={{getValorPorDefecto()}} class="flex-1 my-0 max-w-[70%] max-h-[100%] h-[100%] w-full rounded-l-md bg-white text-base text-gray-900 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                  <ion-button id="open-custom-dialog" expand="block" [ngClass]="`flex-1 w-full max-w-[30%] ion-no-padding ion-no-margin-top ion-no-margin my-0 neering-boton rounded-r-md`">Elegir</ion-button>
+                </div>
+              </div>
+            </ion-row>
+
+            <ion-row [ngClass]="` max-w-[90%] mx-auto`"> 
+
+              <div class="sm:col-span-3 w-[100%] mt-2">
+                <label for="descripcion" class="block text-sm/6 font-medium text-gray-600">Descripción</label>
+                <div class="">
+                  <textarea #descripcion (focus)="setOcultarContenedorImagen()" (blur)="setMostrarContenedorImagen()" class="rounded w-full" rows="2" placeholder="Ingrese texto aquí"></textarea>
+                </div>
+              </div>
+            </ion-row>
+            <ion-row [ngClass]="` w-[90%] mx-auto mt-2`">
+              <ion-button [ngClass]="`w-[100%] neering-boton`" (click)="agregarNuevoProducto()">
+                Guardar
+                </ion-button>
+            </ion-row>
+          </ion-grid>
+
+        </ion-row>
+        
+
+      </ion-grid>
+    </ion-row>
+
+  </ion-grid>
+  <ion-modal id="example-modal" #modal trigger="open-custom-dialog" (focus)="cargarCategorias()" >
+    <ng-template >
+      <div class="wrapper" [ngClass]="`max-w-[80vw] w-[80vw]`">
+        <ion-header class="font-bold text-center py-2 font-xl">Seleccione categoría</ion-header>
+        <hr/>
+        <div [ngClass]="`h-[50vh] max-h-[50vh] overflow-y-scroll`">
+        <ion-list lines="none" >
+          <ion-item button="true" detail="false" (click)="setValorCategoria(getValorPorDefecto()) ; modal.dismiss()">
+            <ion-label>{{getValorPorDefecto()}}</ion-label>
+          </ion-item>
+          <ion-item button="true" *ngFor="let categoria of getCategorias()" detail="false" (click)="setValorCategoria(categoria['name']) ; modal.dismiss()">
+            <ion-label>{{categoria["name"]}}</ion-label>
+          </ion-item>
+        </ion-list>
+        <ng-template #sinElementos>
+          No existen categorías
+        </ng-template>
+      </div> 
+      </div>
+    </ng-template>
+  </ion-modal>
+
+
+  
+<ion-alert [ngClass]="`ion-alert-custom`"
+  [isOpen]="isAlertOpen"
+  header="Confirmación"
+  message="El nuevo producto ha sido guardado."
+  [buttons]="alertButtons"
+  (didDismiss)="setOpen(false); irARuta('productos');"
+></ion-alert>

@@ -1,0 +1,39 @@
+.labelInput
+{
+    color: rgb(108, 108, 108);
+}
+
+.elementoInput
+{
+    max-width: 90%;
+    min-width: 90%;
+    width: 90%;
+    border-radius: 0.5rem;
+} 
+
+.elementoInputNormal
+{
+    border: 0.5px rgb(204, 204, 204) solid;
+}
+
+.elementoInputAdvertencia
+{
+    border: 0.5px rgb(185, 18, 18) solid;
+}
+
+.fraccionInputIzquierda
+{ 
+    border-top-left-radius: 0.5rem; 
+    border-bottom-left-radius: 0.5rem;
+}
+
+.fraccionInputDerecha
+{ 
+    border-top-right-radius: 0.5rem; 
+    border-bottom-right-radius: 0.5rem;
+}
+
+.botonActivado
+{
+    background-color: skyblue;
+}

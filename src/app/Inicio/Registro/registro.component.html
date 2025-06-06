@@ -1,0 +1,98 @@
+<div [ngClass]="`h-[100%] min-h-[100%] login_panel flex flex-col`">
+  <form [ngClass]="`h-[100%] min-h-[100%]`">
+    <ion-content [ngClass]="`h-[87.5%] min-h-[87.5%] flex flex-col flex-11`">
+     <!-- INPUT NOMBRE -->
+    <div [ngClass]="``">
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`"> Nombre </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #nombreVacio [ngClass]="`text-right  text-sm text-red-700 font-bold`" hidden> Campo vacío </label>
+        </div>
+      </div>
+      <input #campoNombre [(ngModel)]="nombre" [ngClass]="`elementoInput elementoInputNormal mx-auto`"  name="name" type="text"/>
+    </div>
+    <!-- INPUT CORREO ELECTRÓNICO -->
+    <div>
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">
+          
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`">  Correo electrónico </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #correoVacio [ngClass]="`text-right  text-sm text-red-700 font-bold`" hidden>  Campo vacío </label>
+        </div>
+      </div>
+      
+      <input #campoCorreo [(ngModel)]="correoElectronico" [ngClass]="`elementoInput elementoInputNormal mx-auto`" name="email" type="email"/>
+    </div>
+    <!-- INPUT FECHA DE NACIMIENTO -->
+    <div>
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">
+          
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`"> Fecha de nacimiento </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #fechaVacia [ngClass]="`text-right  text-sm text-red-700 font-bold`" hidden>  Campo vacío </label>
+        </div>
+      </div>
+      
+      <input type="date" [value]="fechaPorDefecto" min="1925-01-01" max="2012-01-01" #campoFecha [(ngModel)]="fechaNacimiento" [ngClass]="`elementoInput elementoInputNormal mx-auto`" name="birthday" />
+    </div>
+    <!-- INPUT TELÉFONO -->
+    <div>
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">         
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`"> Teléfono </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #fonoVacio [ngClass]="`text-right  text-sm text-red-700 font-bold`" hidden>  Campo vacío </label>
+        </div>
+      </div>
+      <!-- FIN LABEL -->
+      <div [ngClass]="`w-[90%] max-w-[90%] mx-auto px-0 p-0`">
+        <div [ngClass]="`inline-block w-full max-w-[37.5%] w-[37.5%] mx-auto px-0 my-0`">
+          <select #campoPrefijoFono [(ngModel)]="prefijoFono" [ngClass]="`fraccionInputIzquierda elementoInputNormal mx-auto max-w-[100%] float-left w-full`" value="56" name="prefix">
+            <option *ngFor="let pais of getCodigosTelefonicos()" value="{{pais.value}}">
+                {{pais.iso + " " + pais.codigo}}
+            </option>
+          </select>
+        </div>
+        <div [ngClass]="`inline-block w-full float-right w-[62.5%] max-w-[62.5%] mx-auto my-0`">
+          <input #campoCuerpoFono [(ngModel)]="cuerpoFono" [ngClass]="`elementoInputNormal mx-auto max-w-[100%] fraccionInputDerecha float-left`" name="phone" type="number" maxlength="12" minlength=7/>
+        </div>
+      </div>
+    </div>
+    <!-- INPUT CONTRASEÑA -->
+    <div [ngClass]="``">
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`"> Contraseña </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #contrasenaVacia [ngClass]="`text-right text-sm text-red-700 font-bold`" hidden> Campo vacío </label>
+        </div>
+      </div>
+      <!-- FIN LABEL -->
+      <div [ngClass]="`w-[90%] max-w-[90%] mx-auto px-0`">
+        <div [ngClass]="`inline-block w-full max-w-[80%] w-[80%] mx-auto`">
+          <input #campoContrasena [(ngModel)]="contrasena" [type]="getMostrarContrasena()?'text':'password'" [ngClass]="`fraccionInputIzquierda elementoInputNormal mx-auto max-w-[100%] float-left w-full`" name="password" />
+        </div>
+        <div [ngClass]="`inline-block w-full float-right w-[20%] max-w-[20%] mx-auto elementoInputNormal fraccionInputDerecha`">
+          <button #botonMostrarContrasena [ngClass]="`mx-auto max-w-[100%] max-h-[100%] w-[100%] grid place-items-center`" [ngStyle]="{ 'height': '2.5em' }" (click)="activarMostrarContrasena()">
+            <img src='../assets/icon/eye-icon.png' class="h-[100%] max-h-[100%] transition duration-300 h-9 w-9"/>
+          </button>
+        </div>
+      </div>
+      <!-- <input #campoContrasena [ngClass]="`elementoInput elementoInputNormal mx-auto`"  name="name" type="text"/> -->
+    </div>
+  </ion-content>
+
+    <!-- BOTÓN REGISTRARME -->
+    <div>
+      <ion-button [ngClass]="`w-[90%] !bg-purple-500 text-sm`" (click)="registrar()">Registrarme</ion-button>
+    </div>
+  </form>
+</div>

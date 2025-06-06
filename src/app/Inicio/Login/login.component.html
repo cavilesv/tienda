@@ -1,0 +1,38 @@
+<ion-content [ngClass]="`login_panel bg-white flex flex-col`">
+  <form [ngClass]="`h-[75%] flex flex-col flex-11`">
+    <div [ngClass]="``">
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`"> Correo electrónico </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #correoVacio [ngClass]="`text-right  text-sm text-red-700 font-bold`" hidden> Campo vacío </label>
+        </div>
+      </div>
+      <!-- INPUT CORREO ELECTRÓNICO -->
+      <input #campoCorreo [ngClass]="`elementoInput elementoInputNormal mx-auto`"  name="email" [(ngModel)]="correoElectronico" type="text" (focus)="cambiarFoco(1, true)" (blur)="cambiarFoco(1, false)"/>
+    </div>
+    <div>
+      <div [ngClass]="`flex flex-row w-[90%] mx-auto`">
+        <div [ngClass]="`flex-1 text-left`">
+          
+          <ion-label [ngClass]="`labelInput text-sm !mt-2`">  Contraseña </ion-label>
+        </div>
+        <div [ngClass]="`flex-2 pr-0 text-right`">
+          <label #contrasenaVacia [ngClass]="`text-right  text-sm text-red-700 font-bold`" hidden>  Campo vacío </label>
+        </div>
+      </div>
+      <!-- INPUT CONSTRASEÑA -->
+      <input #campoContrasena [ngClass]="`elementoInput elementoInputNormal mx-auto`" name="password" [(ngModel)]="contrasena" type="password" [type]="mostrarContrasena ? 'text' : 'password'" (focus)="cambiarFoco(2, true)" (blur)="cambiarFoco(2, false)"/>
+    </div>
+    <div [ngClass]="`py-3`">
+      <ion-label [ngClass]="`text-right mr-5 font-bold text-sm block !mt-2 text-purple-700`">  ¿Has olvidado tu contraseña? </ion-label>
+    </div>
+    <div>
+      <ion-button [ngClass]="`w-[90%] !bg-purple-500 text-sm`" (click)="iniciarSesion()">Log in</ion-button>
+    </div>
+  </form>
+  <div #contenedorBotonGoogle [ngClass]="`flex-1`">
+    <ion-button [ngClass]="`w-[90%] !bg-purple-500 text-sm`">Continua con Google</ion-button>
+  </div>
+</ion-content>

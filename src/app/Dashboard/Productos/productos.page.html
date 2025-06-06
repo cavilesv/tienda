@@ -1,0 +1,159 @@
+<ion-menu [type]="menuType" content-id="main-content" [ngClass]="``">
+  <ion-grid id="gridComponent" [ngClass]="`max-h-[100%] h-[100%]`">
+    <ion-row id="cabeceraMenu" [ngClass]="`h-[30%] gap-0`" size="12">
+      <ion-row [ngClass]="` h-[20%] w-[100%]`">
+        <ion-col size="2" [ngClass]="``">
+          <ion-menu-toggle [ngClass]="`h-[100%] w-[100%]`">
+            <ion-img src="{{getIconsURL()+'close-menu-arrow.png'}}" [ngClass]="`h-[100%] w-[100%]`"></ion-img>
+          </ion-menu-toggle>
+        </ion-col>
+        <ion-col size="10" [ngClass]="``">
+        </ion-col>
+      </ion-row>
+      <ion-row [ngClass]="`h-[80%] w-[100%]`">     
+        <ion-row [ngClass]="`w-[100%] h-[80%]`">
+          <ion-col size="2" [ngClass]="`max-h-[100%]`">
+          </ion-col >
+          <ion-col size="8" [ngClass]="`d-flex ion-align-items-center max-h-[100%]`">
+            <ion-row [ngClass]="`h-[100%] w-[65%] mx-auto`">
+              <ion-col [ngClass]="`h-[100%] w-[100%]`">
+                <ion-avatar [ngClass]="`mx-auto h-[100%] w-[100%]`">
+                  <ion-img alt="Foto de perfil" src="https://ionicframework.com/docs/img/demos/avatar.svg" [ngClass]="`w-[100%] h-[100%]`"></ion-img>
+                </ion-avatar>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="2" [ngClass]="`max-h-[100%]`">
+          </ion-col>
+        </ion-row>
+        <ion-row [ngClass]="`mx-auto text-white font-bold`">
+          <ion-col> {{"Cristofer Avilés Vega"}}</ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+    <ion-row [ngClass]="`w-[100%] max-h-[70%]`">
+      <ion-list [ngClass]="`w-[100%] max-h-[100%]`" lines="none">
+        <ion-item *ngFor="let opcion of getListaMenu1()" (click)="irARuta(opcion['ruta'])">
+          <ion-row [ngClass]="`w-[100%]`">
+            <ion-col size="3" [ngClass]=""><lucide-angular [img]="opcion['icono']" class="my-icon"></lucide-angular></ion-col>
+            <ion-col size="9" [ngClass]=""><ion-label>{{opcion["nombre_opcion"]}}</ion-label></ion-col>
+          </ion-row>
+        </ion-item>  
+      </ion-list>
+      <hr>
+      <ion-list [ngClass]="`w-[100%]`" lines="none">
+        <ion-item *ngFor="let opcion of getListaMenu2()" (click)="irARuta(opcion['ruta'])">
+          <ion-row [ngClass]="`w-[100%]`">
+            <ion-col size="3"><lucide-angular [img]="opcion['icono']" class="my-icon"></lucide-angular></ion-col>
+            <ion-col size="9"><ion-label>{{opcion["nombre_opcion"]}}</ion-label></ion-col>
+          </ion-row>
+        </ion-item> 
+      </ion-list>
+    </ion-row>
+    <ion-row [ngClass]="``">
+      
+    </ion-row>
+  </ion-grid>
+</ion-menu>
+
+<!-- Página principal -->
+<div class="ion-page" id="main-content">
+  <!-- Cabecera fija -->
+  <div class="flex flex-row h-[10%] items-center">
+    <ion-menu-toggle class="flex-1 grid place-items-center">
+      <ion-img src="{{getIconsURL()+'menu-icon.png'}}" [ngClass]="'h-[62%] w-[47%] mx-auto items-center'" />
+    </ion-menu-toggle>
+    <ion-toolbar class="flex-1 p-0">
+      <ion-title class="text-center font-extrabold text-3xl py-0">Productos</ion-title>
+    </ion-toolbar>
+    <ion-toolbar class="flex-1" (click)="irARuta('/agregar_producto')">
+      <ion-img src="{{getIconsURL()+'plus-icon.png'}}" [ngClass]="'h-[40%] w-[25%] mx-auto items-center bg-transparent'" />
+    </ion-toolbar>
+    </div>
+   
+  <!-- Buscador y Rango de precio juntos -->
+  <div class="h-[18%]">
+    
+    <ion-row class="">
+      <ion-col size="2">
+        
+      </ion-col>
+      <ion-col size="8">
+        <ion-searchbar
+           
+          [(ngModel)]="terminoBusqueda"
+          (ionInput)="filtrarProductos()"
+          placeholder="Buscar..."
+        ></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+       <!--  <ion-button *ngIf="filtroActivo" (click)="cancelarBusqueda()">X</ion-button> -->
+       
+      </ion-col>
+    </ion-row>
+    <ion-row [ngClass]="`sticky z-20`">
+      
+
+<ion-radio-group [(ngModel)]="filtroActivo" (ionChange)="cambiarFiltro()" class="w-[100%] sticky z-20 bg-white border border-gray-300">
+  <div class="w-full grid grid-cols-2 gap-1 text-center justify-items-center items-center w-[100%] sticky z-20">
+  <label class="flex items-center gap-2 py-4 rounded cursor-pointer w-auto">
+    <ion-radio value="nombre"></ion-radio>
+    <span class="text-sm">Nombre</span>
+  </label>
+  <label class="flex items-center gap-2 py-4 rounded cursor-pointer w-auto">
+    <ion-radio value="categoria"></ion-radio>
+    <span class="text-sm">Categoría</span>
+  </label>
+</div>
+</ion-radio-group>
+   
+    
+    </ion-row>
+    
+  </div>
+
+  <ion-content [scrollEvents]="true" class="ion-padding">
+    
+    <ng-container *ngIf="mostrarProductos" >
+    <ion-grid class="ion-no-padding ion-no-margin">
+      <ion-row class="ion-no-padding ion-no-margin mb-4" *ngFor="let pair of productPairs">
+        <ion-col size="6" *ngIf="pair[0]">
+          <ion-card class="w-full h-full ion-no-padding ion-no-margin" (click)="irARutaConParametros('ver_producto', pair[0])">
+            <div class="w-full h-[150px]">
+              <img [src]="pair[0].image" class="w-full h-full object-cover" />
+            </div>
+            <ion-card-header class="pt-2 pb-1">
+              <ion-card-title class="text-center text-sm">
+                {{ pair[0].name }}
+              </ion-card-title>
+              <ion-card-subtitle class="text-center text-xs text-gray-600">
+                {{ pair[0].price | currency:'CLP' }}
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+  
+        <ion-col size="6" *ngIf="pair[1]">
+          <ion-card class="w-full h-full ion-no-padding ion-no-margin" (click)="irARutaConParametros('ver_producto', pair[1])">
+            <div class="w-full h-[150px]">
+              <img [src]="pair[1].image" class="w-full h-full object-cover" />
+            </div>
+            <ion-card-header class="pt-2 pb-1">
+              <ion-card-title class="text-center text-sm pr-1">
+                {{ pair[1].name }}
+              </ion-card-title>
+              <ion-card-subtitle class="text-center text-xs text-gray-600">
+                {{ pair[1].price | currency:'CLP' }}
+              </ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll  *ngIf="mostrarScroll" #infiniteScroll threshold="100px" (ionInfinite)="consolear('Scroll infinito activado');cargarDatos($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando productos...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    </ng-container>
+  </ion-content>
+  

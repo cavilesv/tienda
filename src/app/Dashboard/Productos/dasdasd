@@ -1,0 +1,170 @@
+<ion-menu [type]="menuType" content-id="main-content" [ngClass]="``">
+  <ion-grid id="gridComponent" [ngClass]="`max-h-[100%] h-[100%]`">
+    <ion-row id="cabeceraMenu" [ngClass]="`h-[30%] gap-0`" size="12">
+      <ion-row [ngClass]="` h-[20%] w-[100%]`">
+        <ion-col size="2" [ngClass]="``">
+          <ion-menu-toggle [ngClass]="`h-[100%] w-[100%]`">
+            <ion-img src="{{getIconsURL()+'close-menu-arrow.png'}}" [ngClass]="`h-[100%] w-[100%]`"></ion-img>
+          </ion-menu-toggle>
+        </ion-col>
+        <ion-col size="10" [ngClass]="``">
+        </ion-col>
+      </ion-row>
+      <ion-row [ngClass]="`h-[80%] w-[100%]`">     
+        <ion-row [ngClass]="`w-[100%] h-[80%]`">
+          <ion-col size="2" [ngClass]="`max-h-[100%]`">
+          </ion-col >
+          <ion-col size="8" [ngClass]="`d-flex ion-align-items-center max-h-[100%]`">
+            <ion-row [ngClass]="`h-[100%] w-[65%] mx-auto`">
+              <ion-col [ngClass]="`h-[100%] w-[100%]`">
+                <ion-avatar [ngClass]="`mx-auto h-[100%] w-[100%]`">
+                  <ion-img alt="Foto de perfil" src="https://ionicframework.com/docs/img/demos/avatar.svg" [ngClass]="`w-[100%] h-[100%]`"></ion-img>
+                </ion-avatar>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size="2" [ngClass]="`max-h-[100%]`">
+          </ion-col>
+        </ion-row>
+        <ion-row [ngClass]="`mx-auto text-white font-bold`">
+          <ion-col> {{"Cristofer Avilés Vega"}}</ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+    <ion-row [ngClass]="`w-[100%] max-h-[70%]`">
+      <ion-list [ngClass]="`w-[100%] max-h-[100%]`" lines="none">
+        <ion-item *ngFor="let opcion of getListaMenu1()" (click)="irARuta(opcion['ruta'])">
+          <ion-row [ngClass]="`w-[100%]`">
+            <ion-col size="3" [ngClass]=""><lucide-angular [img]="opcion['icono']" class="my-icon"></lucide-angular></ion-col>
+            <ion-col size="9" [ngClass]=""><ion-label>{{opcion["nombre_opcion"]}}</ion-label></ion-col>
+          </ion-row>
+        </ion-item>  
+      </ion-list>
+      <hr>
+      <ion-list [ngClass]="`w-[100%]`" lines="none">
+        <ion-item *ngFor="let opcion of getListaMenu2()" (click)="irARuta(opcion['ruta'])">
+          <ion-row [ngClass]="`w-[100%]`">
+            <ion-col size="3"><lucide-angular [img]="opcion['icono']" class="my-icon"></lucide-angular></ion-col>
+            <ion-col size="9"><ion-label>{{opcion["nombre_opcion"]}}</ion-label></ion-col>
+          </ion-row>
+        </ion-item> 
+      </ion-list>
+    </ion-row>
+    <ion-row [ngClass]="``">
+
+    </ion-row>
+  </ion-grid>
+</ion-menu>
+  <!-- <ion-content class="ion-padding">
+    
+  </ion-content> -->
+  
+
+
+<div class="ion-page" id="main-content">
+  <div class="flex flex-row h-[10%] min-h-[10%] max-h-[10%]">
+    <ion-menu-toggle [ngClass]="`flex-1 grid place-items-center`">
+      <ion-img src="{{getIconsURL()+'menu-icon.png'}}" [ngClass]="`h-[58%] w-[30%] mx-auto items-center`"></ion-img>
+    </ion-menu-toggle>
+    <ion-toolbar [ngClass]="`flex-1`">
+      <ion-title [ngClass]="`text-center font-extrabold text-3xl`">Productos</ion-title>
+    </ion-toolbar>
+    <ion-toolbar [ngClass]="`flex-1`" (click)="irARuta('/agregar_producto')">
+      <ion-img src="{{getIconsURL()+'plus-icon.png'}}" [ngClass]="`h-[58%] w-[30%] mx-auto items-center`"></ion-img>
+    </ion-toolbar>
+  </div>
+  <div [ngClass]="`h-[10%] min-h-[10%] max-h-[10%] border border-blue-300`">
+  </div>
+  <ion-content class="ion-padding border border-red-300 h-[80%] min-h-[80%] max-h-[80%]">
+   
+  
+    <!-- Infinite Scroll -->
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="cargarDatos($event)" class="hidden">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando productos...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-refresher class="border border-red-300 h-[10%] max-h-[10%] min-h-[10%] hidden" slot="fixed" (ionRefresh)="cargarProductos()">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+  
+    <!-- Productos en grid -->
+    <ion-grid [ngClass]="`border border-red-600 w-[100%] min-h-[100%] max-h-[100%] h-[100%] ion-no-padding ion-no-margin`">
+      <ion-row [ngClass]="`w-[100%] min-h-[40vh] h-[40vh] ion-no-padding ion-no-margin border border-blue-600`">
+        <ion-col size="6" *ngFor="let producto of productos" [ngClass]="`ion-no-padding ion-no-margin border border-red-600`">
+          <ion-card [ngClass]="`w-[100%] h-[95%] ion-no-padding ion-no-margin`">
+            <img [src]="producto.image_url" />
+            <ion-card-header>
+              <ion-card-title [ngClass]="`flex text-sm border border-red-300`">
+                <ion-col>{{ producto.name }}</ion-col>
+                  
+                <ion-col></ion-col>
+              </ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+   
+    
+  </ion-content>
+</div>
+
+
+
+
+
+
+
+
+<!-- <div [ngClass]="`w-[100%] h-[100%] border border-blue-500`">
+      <div [ngClass]="`flex flex-row border border-red-200 h-[10%]`">
+        <div [ngClass]="`flex-1`">
+          <img #iconoMenu src="../../assets/icon/menu-icon.png" [ngClass]="`ml-2 mt-1 h-1/2`" />
+        </div>
+        <div [ngClass]="`flex-3`">
+          <ion-label [ngClass]="`font-bold text-4xl !mt-4`"> Productos </ion-label>
+        </div>
+        <div [ngClass]="`flex-1 border border-red-200`">
+          <!-- <img #iconoMenu src="../../assets/icon/plus-icon.png" [ngClass]="`mx-auto mt-1 h-1/3`" /> -->
+          <!--  <app-boton-menu [ngClass]="`flex-1 border border-red-200`"></app-boton-menu>
+        </div>
+      </div>
+      <div [ngClass]="`border border-blue-200 h-[15%]`">
+        <div [ngClass]="`text-center`">
+          <div class="flex justify-center">
+            <div class="flex w-72 rounded-full overflow-hidden border focus-within:ring-2 focus-within:ring-blue-500">
+              <input type="text" placeholder="Ingrese texto..."
+                     class="flex-grow px-4 py-2 focus:outline-none border border-blue-200" />
+              <button type="submit"
+                      class="px-4 mx-auto bg-blue-500 hover:bg-blue-600 transition-colors text-white text-center">Buscar
+              </button>
+            </div>
+          </div>
+          <!-- <input [ngClass]="`mx-auto w-[85%] rounded-full`" type="text"/> -->
+      <!--   </div>
+        
+        <div [ngClass]="`border border-blue-200 text-center h-[10]`"> 
+          <label>
+            <input type="radio" name="criterio" value="1">
+            Nombre
+          </label>
+          
+          <label>
+            <input type="radio" name="criterio" value="2">
+            Categoría
+          </label>
+        </div>
+      </div>
+      <div [ngClass]="`border border-red-400 h-[100%]`" >
+        <ion-content [ngClass]="``">
+
+        </ion-content>
+      </div>
+ -->
+<!-- </div> --> 
+
+    
+      
+  
